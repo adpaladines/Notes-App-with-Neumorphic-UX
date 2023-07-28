@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ihe-la-nVw">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Singleton-->
+        <scene sceneID="pbD-5Z-T0T">
+            <objects>
+                <viewController id="kO4-8Y-RTm" customClass="ViewController" customModule="DesignPatternsExampleProject" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="4jg-Wi-5eU">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a3H-qW-fay">
+                                <rect key="frame" x="159" y="83" width="75" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="10d-iF-1z7"/>
+                                    <constraint firstAttribute="width" constant="75" id="KEw-VT-LZh"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="LogIn"/>
+                                <connections>
+                                    <action selector="doLogInTap:" destination="kO4-8Y-RTm" eventType="touchUpInside" id="3lj-C6-4AJ"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p4I-vD-HkK">
+                                <rect key="frame" x="143.66666666666666" y="154" width="106" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="106" id="bBc-aV-4EP"/>
+                                    <constraint firstAttribute="height" constant="35" id="qGZ-fK-oX6"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Check Info"/>
+                                <connections>
+                                    <action selector="checkDetailsTap:" destination="kO4-8Y-RTm" eventType="touchUpInside" id="Hde-Yn-DfG"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JOb-tw-bQv">
+                                <rect key="frame" x="156" y="225" width="81" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="81" id="8P4-oE-oNF"/>
+                                    <constraint firstAttribute="height" constant="35" id="CTr-Us-Xhs"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="LogOut"/>
+                                <connections>
+                                    <action selector="logOutTap:" destination="kO4-8Y-RTm" eventType="touchUpInside" id="Aln-3u-NHf"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="NpZ-dG-rxf"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="p4I-vD-HkK" firstAttribute="top" secondItem="a3H-qW-fay" secondAttribute="bottom" constant="36" id="E6m-Jy-XBi"/>
+                            <constraint firstItem="JOb-tw-bQv" firstAttribute="top" secondItem="p4I-vD-HkK" secondAttribute="bottom" constant="36" id="H23-zf-LCf"/>
+                            <constraint firstItem="JOb-tw-bQv" firstAttribute="centerX" secondItem="4jg-Wi-5eU" secondAttribute="centerX" id="S0p-KZ-DSf"/>
+                            <constraint firstItem="a3H-qW-fay" firstAttribute="centerX" secondItem="4jg-Wi-5eU" secondAttribute="centerX" id="fe3-wq-iPy"/>
+                            <constraint firstItem="p4I-vD-HkK" firstAttribute="centerX" secondItem="4jg-Wi-5eU" secondAttribute="centerX" id="vnH-BR-ACe"/>
+                            <constraint firstItem="a3H-qW-fay" firstAttribute="top" secondItem="NpZ-dG-rxf" secondAttribute="top" constant="24" id="wow-hx-6lk"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Singleton" id="y4g-nq-jAU"/>
+                    <navigationItem key="navigationItem" id="kHQ-rP-oLD"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gHe-ro-akt" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="495" y="723"/>
+        </scene>
+        <!--Factory-->
+        <scene sceneID="UfY-XW-cSU">
+            <objects>
+                <viewController id="b4a-SX-xo5" customClass="FactoryViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="oRu-E7-IJn">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1d1-rM-ZBB">
+                                <rect key="frame" x="172" y="250" width="82" height="35"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Factory"/>
+                                <connections>
+                                    <action selector="runFactoryTap:" destination="b4a-SX-xo5" eventType="touchUpInside" id="GsZ-Sr-Hqk"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="PKR-K1-7YP"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="1d1-rM-ZBB" firstAttribute="centerX" secondItem="oRu-E7-IJn" secondAttribute="centerX" constant="16.5" id="SEF-bt-4iC"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Factory" id="8CO-On-Vhq"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7lt-LK-TyC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1344" y="723"/>
+        </scene>
+        <!--Observer-->
+        <scene sceneID="beD-iu-5AV">
+            <objects>
+                <viewController id="sKD-s7-sDd" customClass="PublisherSubscriberPatternViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="UO0-2Z-q6M">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KCf-TD-DWG">
+                                <rect key="frame" x="149" y="282" width="95" height="35"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Observer"/>
+                                <connections>
+                                    <action selector="newSubscriptionTap:" destination="sKD-s7-sDd" eventType="touchUpInside" id="1jf-XT-moK"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="FXa-L5-2h4"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="KCf-TD-DWG" firstAttribute="centerX" secondItem="UO0-2Z-q6M" secondAttribute="centerX" id="6GA-ox-UZ0"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Observer" id="l5U-07-fXD"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="h71-uI-vBN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2097" y="723"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="ch0-i2-iZr">
+            <objects>
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="ihe-la-nVw" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Ptq-Iy-5cC">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="kO4-8Y-RTm" kind="relationship" relationship="viewControllers" id="nay-it-8yk"/>
+                        <segue destination="b4a-SX-xo5" kind="relationship" relationship="viewControllers" id="vMd-Id-2Ga"/>
+                        <segue destination="sKD-s7-sDd" kind="relationship" relationship="viewControllers" id="GnW-Nx-Pyh"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ZdV-ID-2r6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1052.6717557251909" y="-27.464788732394368"/>
+        </scene>
+    </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

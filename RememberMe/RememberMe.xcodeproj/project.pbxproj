@@ -16,6 +16,15 @@
 		02E0C9852A741E8A00350F5B /* RememberMeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E0C9842A741E8A00350F5B /* RememberMeTests.swift */; };
 		02E0C98F2A741E8A00350F5B /* RememberMeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E0C98E2A741E8A00350F5B /* RememberMeUITests.swift */; };
 		02E0C9912A741E8A00350F5B /* RememberMeUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E0C9902A741E8A00350F5B /* RememberMeUITestsLaunchTests.swift */; };
+		02E0C9A02A7425BC00350F5B /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E0C99F2A7425BC00350F5B /* ContentViewModel.swift */; };
+		02E0C9A32A742C2200350F5B /* GenericCoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E0C9A22A742C2200350F5B /* GenericCoreDataManager.swift */; };
+		02E0C9A62A742C3D00350F5B /* CoreDataGenericOperationsProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E0C9A52A742C3D00350F5B /* CoreDataGenericOperationsProtocol.swift */; };
+		02E0C9A82A742CF300350F5B /* NotesPersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E0C9A72A742CF300350F5B /* NotesPersistenceManager.swift */; };
+		02E0C9AA2A742D2B00350F5B /* CoreDataOperationsProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E0C9A92A742D2B00350F5B /* CoreDataOperationsProtocol.swift */; };
+		02E0C9AD2A742EE300350F5B /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E0C9AC2A742EE300350F5B /* Array+Extension.swift */; };
+		02E0C9AF2A74300600350F5B /* View+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E0C9AE2A74300600350F5B /* View+Extension.swift */; };
+		02E0C9B12A74302800350F5B /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E0C9B02A74302800350F5B /* Color+Extension.swift */; };
+		02E0C9B42A74322000350F5B /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E0C9B32A74322000350F5B /* Note.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +57,15 @@
 		02E0C98A2A741E8A00350F5B /* RememberMeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RememberMeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		02E0C98E2A741E8A00350F5B /* RememberMeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RememberMeUITests.swift; sourceTree = "<group>"; };
 		02E0C9902A741E8A00350F5B /* RememberMeUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RememberMeUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		02E0C99F2A7425BC00350F5B /* ContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
+		02E0C9A22A742C2200350F5B /* GenericCoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericCoreDataManager.swift; sourceTree = "<group>"; };
+		02E0C9A52A742C3D00350F5B /* CoreDataGenericOperationsProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataGenericOperationsProtocol.swift; sourceTree = "<group>"; };
+		02E0C9A72A742CF300350F5B /* NotesPersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesPersistenceManager.swift; sourceTree = "<group>"; };
+		02E0C9A92A742D2B00350F5B /* CoreDataOperationsProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataOperationsProtocol.swift; sourceTree = "<group>"; };
+		02E0C9AC2A742EE300350F5B /* Array+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
+		02E0C9AE2A74300600350F5B /* View+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extension.swift"; sourceTree = "<group>"; };
+		02E0C9B02A74302800350F5B /* Color+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
+		02E0C9B32A74322000350F5B /* Note.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,11 +116,14 @@
 		02E0C96D2A741E8800350F5B /* RememberMe */ = {
 			isa = PBXGroup;
 			children = (
+				02E0C9B22A74321500350F5B /* Models */,
+				02E0C9AB2A742ECD00350F5B /* Extensions */,
+				02E0C99E2A74259200350F5B /* ViewModel */,
+				02E0C99D2A74254100350F5B /* Persistence */,
 				02E0C96E2A741E8800350F5B /* RememberMeApp.swift */,
 				02E0C9702A741E8800350F5B /* ContentView.swift */,
 				02E0C9722A741E8900350F5B /* Assets.xcassets */,
 				02E0C9772A741E8900350F5B /* Persistence.swift */,
-				02E0C9792A741E8900350F5B /* RememberMe.xcdatamodeld */,
 				02E0C9742A741E8900350F5B /* Preview Content */,
 			);
 			path = RememberMe;
@@ -131,6 +152,60 @@
 				02E0C9902A741E8A00350F5B /* RememberMeUITestsLaunchTests.swift */,
 			);
 			path = RememberMeUITests;
+			sourceTree = "<group>";
+		};
+		02E0C99D2A74254100350F5B /* Persistence */ = {
+			isa = PBXGroup;
+			children = (
+				02E0C9A42A742C3500350F5B /* Protocols */,
+				02E0C9A12A742C0F00350F5B /* Manager */,
+				02E0C9792A741E8900350F5B /* RememberMe.xcdatamodeld */,
+			);
+			path = Persistence;
+			sourceTree = "<group>";
+		};
+		02E0C99E2A74259200350F5B /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				02E0C99F2A7425BC00350F5B /* ContentViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		02E0C9A12A742C0F00350F5B /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				02E0C9A22A742C2200350F5B /* GenericCoreDataManager.swift */,
+				02E0C9A72A742CF300350F5B /* NotesPersistenceManager.swift */,
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
+		02E0C9A42A742C3500350F5B /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				02E0C9A52A742C3D00350F5B /* CoreDataGenericOperationsProtocol.swift */,
+				02E0C9A92A742D2B00350F5B /* CoreDataOperationsProtocol.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		02E0C9AB2A742ECD00350F5B /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				02E0C9AC2A742EE300350F5B /* Array+Extension.swift */,
+				02E0C9AE2A74300600350F5B /* View+Extension.swift */,
+				02E0C9B02A74302800350F5B /* Color+Extension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		02E0C9B22A74321500350F5B /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				02E0C9B32A74322000350F5B /* Note.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -264,9 +339,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				02E0C97B2A741E8900350F5B /* RememberMe.xcdatamodeld in Sources */,
+				02E0C9AD2A742EE300350F5B /* Array+Extension.swift in Sources */,
+				02E0C9A82A742CF300350F5B /* NotesPersistenceManager.swift in Sources */,
+				02E0C9A62A742C3D00350F5B /* CoreDataGenericOperationsProtocol.swift in Sources */,
 				02E0C9782A741E8900350F5B /* Persistence.swift in Sources */,
+				02E0C9B42A74322000350F5B /* Note.swift in Sources */,
+				02E0C9A32A742C2200350F5B /* GenericCoreDataManager.swift in Sources */,
+				02E0C9AA2A742D2B00350F5B /* CoreDataOperationsProtocol.swift in Sources */,
+				02E0C9B12A74302800350F5B /* Color+Extension.swift in Sources */,
+				02E0C9AF2A74300600350F5B /* View+Extension.swift in Sources */,
 				02E0C9712A741E8800350F5B /* ContentView.swift in Sources */,
 				02E0C96F2A741E8800350F5B /* RememberMeApp.swift in Sources */,
+				02E0C9A02A7425BC00350F5B /* ContentViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

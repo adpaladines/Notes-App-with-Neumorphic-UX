@@ -14,6 +14,7 @@ struct RememberMeApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(ContentViewModel())
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }

@@ -2,7 +2,7 @@
 //  ViewController.swift
 //  DesignPatterns
 //
-//  Created by Consultant on 7/27/23.
+//  Created by Andres D. Paladines on 7/27/23.
 //
 
 import UIKit

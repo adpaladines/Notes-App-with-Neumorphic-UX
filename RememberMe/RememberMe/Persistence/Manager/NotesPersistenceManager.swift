@@ -17,6 +17,26 @@ class NotesPersistenceManager: CoreDataOperationsProtocol {
     required init(context: NSManagedObjectContext) {
         self.context = context
     }
+    
+    func fetchSingleItemFromDatabase(uuid: String) async throws -> NoteEntity? {
+        let fetchRequest: NSFetchRequest<NoteEntity> = NoteEntity.fetchRequest()
+        let predicate = NSPredicate(format: "uuid == %@", uuid)
+        fetchRequest.predicate = predicate
+        let result = try context.fetch(fetchRequest).first
+        return result
+    }
+    
+    func fetchDataFromDatabase() async throws -> [NoteEntity] {
+        let request: NSFetchRequest<NoteEntity> = NoteEntity.fetchRequest()
+        let result = try context.fetch(request)
+        return result
+    }
+    
+    func getItemDataFromDatabase() async throws -> NoteEntity {
+        let request: NSFetchRequest<NoteEntity> = NoteEntity.fetchRequest()
+        let result = try context.fetch(request).first!
+        return result
+    }
 
     func saveDataIntoDatabase(item: Note) async throws {
         let noteEntity = NoteEntity(context: context)
@@ -32,7 +52,28 @@ class NotesPersistenceManager: CoreDataOperationsProtocol {
             print(error.localizedDescription)
         }
     }
-
+    
+    func updateNoteEntity(with note: Note) async throws {
+        guard let noteEntity = try await fetchSingleItemFromDatabase(uuid: note.uuid) else {
+            print("NoteEntity with UUID: \(note.uuid) not found.")
+            return
+        }
+        noteEntity.titleString = note.titleString
+        noteEntity.bodyString = note.bodyString
+        noteEntity.dateUpdate = Date()
+        try context.save()
+    }
+    
+    func deleteEntity(with note: Note) async throws{
+        guard let noteEntity = try await fetchSingleItemFromDatabase(uuid: note.uuid) else {
+            print("NoteEntity with UUID: \(note.uuid) not found.")
+            return
+        }
+        context.delete(noteEntity)
+        try context.save()
+        print("Note with uuid: \(note.uuid), deleted!")
+    }
+    
     func deleteAllRecords() async throws {
         let coreDataGenericManager: GenericPersistenceManager = GenericPersistenceManager(context: context)
         try await coreDataGenericManager.clearData(entityType: NoteEntity.self)

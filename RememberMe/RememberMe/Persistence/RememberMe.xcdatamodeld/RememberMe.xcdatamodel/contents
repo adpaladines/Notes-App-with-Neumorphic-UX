@@ -3,6 +3,7 @@
     <entity name="NoteEntity" representedClassName="NoteEntity" syncable="YES" codeGenerationType="class">
         <attribute name="bodyString" optional="YES" attributeType="String"/>
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="dateUpdate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="titleString" optional="YES" attributeType="String"/>
         <attribute name="type" optional="YES" attributeType="String"/>
         <attribute name="uuid" optional="YES" attributeType="String"/>

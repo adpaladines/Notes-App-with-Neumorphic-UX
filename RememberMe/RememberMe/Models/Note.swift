@@ -35,7 +35,6 @@ struct Note: Identifiable, Equatable {
         guard let entityUuid = item.uuid else {
             return nil
         }
-        
         self.uuid = entityUuid
         self.titleString = item.titleString ?? ""
         self.bodyString = item.bodyString ?? ""
@@ -43,17 +42,12 @@ struct Note: Identifiable, Equatable {
         self.type = NoteType(rawValue: item.type ?? "other") ?? .other
     }
     
-    init?(uuid: String, titleString: String?, bodyString: String?, date: Date, type: NoteType) {
-            guard let titleString = titleString, !titleString.isEmpty,
-                  let bodyString = bodyString, !bodyString.isEmpty else {
-                return nil
-            }
-            
-            self.uuid = uuid
-            self.titleString = titleString
-            self.bodyString = bodyString
-            self.date = date
-            self.type = type
-        }
-
+    init(note: Note, titleString: String, bodyString: String, type: NoteType) {
+        self.uuid = note.uuid
+        self.titleString = titleString
+        self.bodyString = bodyString
+        self.date = note.date
+        self.type = note.type
+    }
+    
 }

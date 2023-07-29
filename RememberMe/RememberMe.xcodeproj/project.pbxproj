@@ -27,6 +27,7 @@
 		DD90EFFC2A75541C006FC60C /* RememberMe.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 02E0C9792A741E8900350F5B /* RememberMe.xcdatamodeld */; };
 		DD90EFFE2A75626F006FC60C /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD90EFFD2A75626F006FC60C /* Date+Extension.swift */; };
 		DD90F0002A756292006FC60C /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD90EFFF2A756292006FC60C /* String+Extension.swift */; };
+		DD90F0032A75A1CA006FC60C /* NoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD90F0022A75A1CA006FC60C /* NoteView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,6 +71,7 @@
 		02E0C9B32A74322000350F5B /* Note.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
 		DD90EFFD2A75626F006FC60C /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		DD90EFFF2A756292006FC60C /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
+		DD90F0022A75A1CA006FC60C /* NoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,12 +122,12 @@
 		02E0C96D2A741E8800350F5B /* RememberMe */ = {
 			isa = PBXGroup;
 			children = (
+				DD90F0012A759D0A006FC60C /* View */,
 				02E0C9B22A74321500350F5B /* Models */,
 				02E0C9AB2A742ECD00350F5B /* Extensions */,
 				02E0C99E2A74259200350F5B /* ViewModel */,
 				02E0C99D2A74254100350F5B /* Persistence */,
 				02E0C96E2A741E8800350F5B /* RememberMeApp.swift */,
-				02E0C9702A741E8800350F5B /* ContentView.swift */,
 				02E0C9722A741E8900350F5B /* Assets.xcassets */,
 				02E0C9772A741E8900350F5B /* Persistence.swift */,
 				02E0C9742A741E8900350F5B /* Preview Content */,
@@ -212,6 +214,15 @@
 				02E0C9B32A74322000350F5B /* Note.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		DD90F0012A759D0A006FC60C /* View */ = {
+			isa = PBXGroup;
+			children = (
+				02E0C9702A741E8800350F5B /* ContentView.swift */,
+				DD90F0022A75A1CA006FC60C /* NoteView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -354,6 +365,7 @@
 				02E0C9AF2A74300600350F5B /* View+Extension.swift in Sources */,
 				DD90EFFC2A75541C006FC60C /* RememberMe.xcdatamodeld in Sources */,
 				02E0C9712A741E8800350F5B /* ContentView.swift in Sources */,
+				DD90F0032A75A1CA006FC60C /* NoteView.swift in Sources */,
 				02E0C96F2A741E8800350F5B /* RememberMeApp.swift in Sources */,
 				DD90EFFE2A75626F006FC60C /* Date+Extension.swift in Sources */,
 				DD90EFFB2A755414006FC60C /* NotesPersistenceManager.swift in Sources */,

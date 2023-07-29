@@ -14,7 +14,9 @@ struct ContentView: View {
     @State var notesList: [Note] = []
     
     func getNotesFromDB() async {
-        notesList = await viewModel.getProductsListFromGenericDB() ?? []
+        Task {
+            notesList = await viewModel.getProductsListFromDB() ?? []
+        }
     }
     
     func addItem() async {
@@ -24,15 +26,20 @@ struct ContentView: View {
 
     func deleteItems(offsets: IndexSet) {
         withAnimation {
-            
+            guard let index = offsets.first else {
+                return
+            }
+            let note = notesList[index]
+            notesList.remove(atOffsets: offsets)
+            Task {
+                await viewModel.delete(note: note)
+            }
         }
     }
     
     func getDBDirectory() {
         guard let url = FileManager.default.urls(for: .applicationDirectory, in: .userDomainMask).first
-        else {
-            return
-        }
+        else { return }
         let sqlitepath = url.appendingPathComponent("RememberMe")
         print(sqlitepath)
     }
@@ -40,28 +47,21 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             
-                List {
-                    if notesList.isEmpty {
-                        HStack(alignment: .center) {
-                            Spacer()
-                            Image("no-data-found")
-                                .resizable()
-                                .frame(width: 128, height: 100)
-                                .cornerRadius(25, corners: .topLeft)
-                                .cornerRadius(25, corners: .bottomRight)
-                            Spacer()
-                        }
+            List {
+                if notesList.isEmpty {
+                    HStack(alignment: .center) {
+                        Spacer()
+                        Image("no-data-found")
+                            .resizable()
+                            .frame(width: 128, height: 100)
+                            .cornerRadius(25, corners: .topLeft)
+                            .cornerRadius(25, corners: .bottomRight)
+                        Spacer()
                     }
-                    
+                }else {
                     ForEach(notesList) { item in
                         NavigationLink {
-                            VStack {
-                                Text("Item at \(item.date)")
-                                Text("Title: \(item.titleString)")
-                                Text("Body: \(item.bodyString)")
-                                Text("Type: \(item.type.rawValue)")
-                            }
-                            
+                            NoteView(item: item)
                         } label: {
                             Text(item.titleString)
                         }
@@ -69,30 +69,29 @@ struct ContentView: View {
                     .onDelete{ indexSet in
                         deleteItems(offsets: indexSet)
                     }
-                    
                 }
-                .padding([.bottom])
-                .toolbar {
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        EditButton()
-                    }
-                    ToolbarItem {
-                        Button {
-                            Task {
-                                await addItem()
-                            }
-                        } label: {
-                            Label("Add Item", systemImage: "plus")
+                
+            }
+            .padding([.bottom])
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    EditButton()
+                }
+                ToolbarItem {
+                    Button {
+                        Task {
+                            await addItem()
                         }
+                    } label: {
+                        Label("Add Item", systemImage: "plus")
                     }
                 }
-                .onAppear {
-                    getDBDirectory()
+            }
+            .refreshable {
+                Task {
+                    await getNotesFromDB()
                 }
-            
-            
-            
-            
+            }
             Text("Select an item")
         }
         .task {
@@ -101,7 +100,7 @@ struct ContentView: View {
     }
     
     
-
+    
     
 }
 

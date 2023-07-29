@@ -92,4 +92,66 @@ print("Total Price: $\(totalPrice)") // Output: Total Price: $50.0
 `Structs` are value type, meaning they can be copied and passed arround the code. Modifications in a copy don't affect the original. They do not support iheritance and are suitable for simple data models.
 `Classes` are reference type meaning multiple variables can point to the same object in memory, have inheritance, they are deallocable and often used for complex data models.
 
+## Multithreading options in iOS:
+1. GCD -> Grand Central Dispatch
+2. OperationQueue
+3. Await Async
+4. Actor
+5. Thread
+6. Semaphore
+ 
+DispatchWorkItem
+DispatchGroup
 
+
+#### GCD:
+It allows you to perform tasks concurrently by dividing them into smaller blocks and submitting them to queues that can be concurrent or serial.
+`GCD - QoS (1 for the most prioritary and 4 for less priority):`
+1. `User Interactive` => For animations or any kind of user related job with direct UI interactions.
+2. `User Initiated` => When user requires imediate results, scrolling tableview for pagination or pull to reload
+3. `Utility` => tasks which are long running, like downloading files.
+4. `Background` => Something which is not visible to user like creating backups, restoring from server/ syncing like retrieving data from google cloud, etc.
+    
+* `Default` => Falls between UserInitiated and Utility.
+* `Unspecified` => This has the last priority.
+
+#### OperationQueue:
+Are nothing but tasks. They have the ability to add dependency, pause, stop and resume.
+
+```swift
+//Generating simple tasks:
+let prepareLettuces = BlockOperation { print("Preparing lettuce 🥬") }
+let prepareOnion = BlockOperation { print("Preparing Onion 🧅") }
+let prepareTomatoes = BlockOperation { print("Preparing Tomatoes 🍅") }
+
+//Adding dependency:
+prepareTomatoes.addDependency(prepareOnion)
+prepareLettuces.addDependency(prepareOnion)
+
+//Creating control:
+let opQueue = OperationQueue()
+opQueue.maxConcurrentOperationCount = 1
+opQueue.addOperations([
+    prepareLettuces,
+    prepareOnion,
+    prepareTomatoes
+], waitUntilFinished: false)
+
+//Output: Preparing Onion 🧅
+//Output: Preparing lettuce 🥬
+//Output: Preparing Tomatoes 🍅
+```
+
+#### Await Async:
+A simplified approach for asynchronous programming such as network requests, file operations, or database queries. Instead of using callback closures, delegates, or completion handlers.
+
+#### Actor:
+Actors encapsule mutable state within a protected boundary, ensuring that only one task (actor) can access that state at a time, eliminatiing potential data races and synchronization issues.
+
+#### Thread:
+They are the old way to use concurrency in app to handle networking, background processing, and UI updates. using them directly can be complex increasing the probability for data races and deadlocks.
+
+#### Semaphore:
+Semaphore is used in concurrent programming. Acts as a gatekeeper, regulating the number of threads or processes allowed to access a particular resource at any given time.
+`Binary Semaphore`: Also known as a mutex (short for mutual exclusion), this type of semaphore has a maximum count of 1. It means only one thread or process can access the resource at a time. Binary semaphores are typically used to protect critical sections of code, where only one thread should be executing at any given time.
+`Counting Semaphore`: This type of semaphore has a specified maximum count greater than 1. It allows multiple threads or processes to access the resource simultaneously, up to the maximum count. Counting semaphores are often used to control access to resources that can handle a limited number of concurrent users, like limiting the number of connections to a database or controlling access to a pool of shared objects.

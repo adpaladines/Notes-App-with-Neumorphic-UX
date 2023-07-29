@@ -42,14 +42,14 @@
     - [ ] Save in CoreData
     - [ ] Fetch from CoreData
 
-- [ ] Interview Questions >>[Document](./Resources/QuestionsAnswers.md)<<
+- [x] Interview Questions >>[Document](./Resources/QuestionsAnswers.md)<<
     - [x] Protocols
     - [x] Extension
     - [x] Enum
     - [x] Closures
     - [x] Swift vs Objective C
     - [x] Struct vs classes
-    - [ ] Multithreading options in iOS
+    - [x] Multithreading options in iOS
 
 [swift-image]:https://img.shields.io/badge/Swift-5.8.1-orange?style=for-the-badge
 [swift-url]: https://swift.org/

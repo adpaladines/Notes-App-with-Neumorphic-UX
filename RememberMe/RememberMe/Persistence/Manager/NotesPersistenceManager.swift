@@ -10,22 +10,31 @@ import CoreData
 
 class NotesPersistenceManager: CoreDataOperationsProtocol {
 
-    typealias ItemType = Note
-    typealias ManagedObjectType = NoteEntity
-
-    func saveDataIntoDatabase<ItemType>(items: ItemType) async throws {
-        try await deleteAllRecords()
-
+    typealias ItemType = [Note]
+    
+    let context: NSManagedObjectContext
+    
+    required init(context: NSManagedObjectContext) {
+        self.context = context
     }
 
-
-    func deleteAllRecords() async throws {
+    func saveDataIntoDatabase(item: Note) async throws {
+        let noteEntity = NoteEntity(context: context)
+        noteEntity.uuid = item.uuid
+        noteEntity.titleString = item.titleString
+        noteEntity.bodyString = item.bodyString
+        noteEntity.date = item.date
+        noteEntity.type = item.type.rawValue
+        
         do {
-            let coreDataGenericManager: GenericPersistenceManager = GenericPersistenceManager()
-            
-            try await coreDataGenericManager.clearData(entity: NoteEntitry)
+            try context.save()
         }catch let error {
             print(error.localizedDescription)
         }
+    }
+
+    func deleteAllRecords() async throws {
+        let coreDataGenericManager: GenericPersistenceManager = GenericPersistenceManager(context: context)
+        try await coreDataGenericManager.clearData(entityType: NoteEntity.self)
     }
 }

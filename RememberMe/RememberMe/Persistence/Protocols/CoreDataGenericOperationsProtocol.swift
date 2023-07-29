@@ -10,11 +10,11 @@ import CoreData
 
 protocol CoreDataGenericOperationsProtocol {
 
-//    associatedtype ItemType
-//    
-//
-//    func saveDataIntoDatabase<ItemType>(items: [ItemType]) async throws
+    var context: NSManagedObjectContext { get }
+    
+    init(context: NSManagedObjectContext)
+    
     func fetchDataFromDatabase<T: NSManagedObject>(entity: T) async throws -> [T]
-    func clearData(entity: NSManagedObject) async throws
+    func clearData<T: NSManagedObject>(entityType: T.Type) async throws
 
 }

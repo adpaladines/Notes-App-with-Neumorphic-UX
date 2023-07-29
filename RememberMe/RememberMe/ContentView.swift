@@ -9,69 +9,100 @@ import SwiftUI
 import CoreData
 
 struct ContentView: View {
-    @Environment(\.managedObjectContext) private var viewContext
+    @EnvironmentObject var viewModel: ContentViewModel
 
-    @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \NoteEntity.title, ascending: true)],
-        animation: .default)
-    private var items: FetchedResults<NoteEntity>
+    @State var notesList: [Note] = []
+    
+    func getNotesFromDB() async {
+        notesList = await viewModel.getProductsListFromGenericDB() ?? []
+    }
+    
+    func addItem() async {
+        await viewModel.addNewNote()
+        await getNotesFromDB()
+    }
 
+    func deleteItems(offsets: IndexSet) {
+        withAnimation {
+            
+        }
+    }
+    
+    func getDBDirectory() {
+        guard let url = FileManager.default.urls(for: .applicationDirectory, in: .userDomainMask).first
+        else {
+            return
+        }
+        let sqlitepath = url.appendingPathComponent("RememberMe")
+        print(sqlitepath)
+    }
+    
     var body: some View {
         NavigationView {
-            List {
-                ForEach(items) { item in
-                    NavigationLink {
-                        Text("Item at \(item.title ?? "No Data")")
-                    } label: {
-                        Text(item.title ?? "No Data")
+            
+                List {
+                    if notesList.isEmpty {
+                        HStack(alignment: .center) {
+                            Spacer()
+                            Image("no-data-found")
+                                .resizable()
+                                .frame(width: 128, height: 100)
+                                .cornerRadius(25, corners: .topLeft)
+                                .cornerRadius(25, corners: .bottomRight)
+                            Spacer()
+                        }
+                    }
+                    
+                    ForEach(notesList) { item in
+                        NavigationLink {
+                            VStack {
+                                Text("Item at \(item.date)")
+                                Text("Title: \(item.titleString)")
+                                Text("Body: \(item.bodyString)")
+                                Text("Type: \(item.type.rawValue)")
+                            }
+                            
+                        } label: {
+                            Text(item.titleString)
+                        }
+                    }
+                    .onDelete{ indexSet in
+                        deleteItems(offsets: indexSet)
+                    }
+                    
+                }
+                .padding([.bottom])
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        EditButton()
+                    }
+                    ToolbarItem {
+                        Button {
+                            Task {
+                                await addItem()
+                            }
+                        } label: {
+                            Label("Add Item", systemImage: "plus")
+                        }
                     }
                 }
-                .onDelete(perform: deleteItems)
-            }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
+                .onAppear {
+                    getDBDirectory()
                 }
-                ToolbarItem {
-                    Button(action: addItem) {
-                        Label("Add Item", systemImage: "plus")
-                    }
-                }
-            }
+            
+            
+            
+            
             Text("Select an item")
         }
-    }
-
-    private func addItem() {
-        withAnimation {
-            let newItem = NoteEntity(context: viewContext)
-            newItem.title = String(describing: Date())
-
-            do {
-                try viewContext.save()
-            } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                let nsError = error as NSError
-                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-            }
+        .task {
+            await getNotesFromDB()
         }
     }
+    
+    
 
-    private func deleteItems(offsets: IndexSet) {
-        withAnimation {
-            offsets.map { items[$0] }.forEach(viewContext.delete)
-
-            do {
-                try viewContext.save()
-            } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                let nsError = error as NSError
-                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-            }
-        }
-    }
+    
 }
 
 private let itemFormatter: DateFormatter = {
@@ -82,7 +113,11 @@ private let itemFormatter: DateFormatter = {
 }()
 
 struct ContentView_Previews: PreviewProvider {
+    
     static var previews: some View {
-        ContentView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+        let viewModel = ContentViewModel()
+        ContentView()
+            .environmentObject(viewModel)
+            .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
     }
 }

@@ -6,13 +6,16 @@
 //
 
 import Foundation
+import CoreData
 
 protocol CoreDataOperationsProtocol {
     associatedtype ItemType
-    associatedtype ManagedObjectType
     
-    func saveDataIntoDatabase<ItemType>(items: [ItemType]) async throws
+    var context: NSManagedObjectContext { get }
+    
+    init(context: NSManagedObjectContext)
+    
+//    func saveDataIntoDatabase<ItemType>(items: ItemType, type: ItemType.Type) async throws
 
-    
 }
 

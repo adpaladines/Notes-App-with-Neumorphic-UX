@@ -36,11 +36,19 @@
     - [x] Facade
 
 - [ ] Notes App:
-    - [ ] CoreData Manager
-    - [ ] UI Interface
-    - [ ] ViewModel
-    - [ ] Save in CoreData
-    - [ ] Fetch from CoreData
+    - [x] CoreData Manager
+    - [ ] UI Non Functional:
+        - [x] Header
+        - [x] Toolbar 
+        - [x] GridViews
+        - [ ] Note Edition
+    - [ ] UI Functionalities:
+        - [ ] GridViews Interactions
+        - [ ] Note Edition Interactions
+        - [ ] Note Edition Close -> Refresh Main View
+    - [x] ViewModel
+    - [x] Save in CoreData
+    - [x] Fetch from CoreData
 
 - [x] Interview Questions >>[Document](./Resources/QuestionsAnswers.md)<<
     - [x] Protocols

@@ -7,12 +7,16 @@
 
 import Foundation
 
-enum NoteType: String {
+enum NoteType: String, CaseIterable {
     case utility
     case home
     case work
     case sport
     case other
+    case birthday
+    case holyday
+    case grocery
+    case all
 }
 
 struct Note: Identifiable, Equatable {

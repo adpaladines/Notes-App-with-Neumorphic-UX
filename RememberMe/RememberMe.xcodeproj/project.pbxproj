@@ -28,6 +28,11 @@
 		DD90EFFE2A75626F006FC60C /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD90EFFD2A75626F006FC60C /* Date+Extension.swift */; };
 		DD90F0002A756292006FC60C /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD90EFFF2A756292006FC60C /* String+Extension.swift */; };
 		DD90F0032A75A1CA006FC60C /* NoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD90F0022A75A1CA006FC60C /* NoteView.swift */; };
+		DD90F0062A75E6C1006FC60C /* Neumorphic in Frameworks */ = {isa = PBXBuildFile; productRef = DD90F0052A75E6C1006FC60C /* Neumorphic */; };
+		DD90F00A2A75E9F1006FC60C /* HeaderNotesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD90F0092A75E9F1006FC60C /* HeaderNotesView.swift */; };
+		DD90F00C2A75EDBB006FC60C /* TitleMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD90F00B2A75EDBB006FC60C /* TitleMainView.swift */; };
+		DD90F00E2A76133D006FC60C /* FilterToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD90F00D2A76133D006FC60C /* FilterToolBar.swift */; };
+		DD90F0102A761384006FC60C /* NotesToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD90F00F2A761384006FC60C /* NotesToolbar.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,6 +77,10 @@
 		DD90EFFD2A75626F006FC60C /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		DD90EFFF2A756292006FC60C /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		DD90F0022A75A1CA006FC60C /* NoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteView.swift; sourceTree = "<group>"; };
+		DD90F0092A75E9F1006FC60C /* HeaderNotesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderNotesView.swift; sourceTree = "<group>"; };
+		DD90F00B2A75EDBB006FC60C /* TitleMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleMainView.swift; sourceTree = "<group>"; };
+		DD90F00D2A76133D006FC60C /* FilterToolBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterToolBar.swift; sourceTree = "<group>"; };
+		DD90F00F2A761384006FC60C /* NotesToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesToolbar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +88,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DD90F0062A75E6C1006FC60C /* Neumorphic in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -122,6 +132,7 @@
 		02E0C96D2A741E8800350F5B /* RememberMe */ = {
 			isa = PBXGroup;
 			children = (
+				DD90F0072A75E9DB006FC60C /* Common */,
 				DD90F0012A759D0A006FC60C /* View */,
 				02E0C9B22A74321500350F5B /* Models */,
 				02E0C9AB2A742ECD00350F5B /* Extensions */,
@@ -225,6 +236,25 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		DD90F0072A75E9DB006FC60C /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				DD90F0082A75E9E4006FC60C /* Views */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		DD90F0082A75E9E4006FC60C /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				DD90F0092A75E9F1006FC60C /* HeaderNotesView.swift */,
+				DD90F00B2A75EDBB006FC60C /* TitleMainView.swift */,
+				DD90F00D2A76133D006FC60C /* FilterToolBar.swift */,
+				DD90F00F2A761384006FC60C /* NotesToolbar.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -241,6 +271,9 @@
 			dependencies = (
 			);
 			name = RememberMe;
+			packageProductDependencies = (
+				DD90F0052A75E6C1006FC60C /* Neumorphic */,
+			);
 			productName = RememberMe;
 			productReference = 02E0C96B2A741E8800350F5B /* RememberMe.app */;
 			productType = "com.apple.product-type.application";
@@ -313,6 +346,9 @@
 				Base,
 			);
 			mainGroup = 02E0C9622A741E8800350F5B;
+			packageReferences = (
+				DD90F0042A75E6C1006FC60C /* XCRemoteSwiftPackageReference "neumorphic" */,
+			);
 			productRefGroup = 02E0C96C2A741E8800350F5B /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -364,12 +400,16 @@
 				02E0C9B12A74302800350F5B /* Color+Extension.swift in Sources */,
 				02E0C9AF2A74300600350F5B /* View+Extension.swift in Sources */,
 				DD90EFFC2A75541C006FC60C /* RememberMe.xcdatamodeld in Sources */,
+				DD90F0102A761384006FC60C /* NotesToolbar.swift in Sources */,
+				DD90F00E2A76133D006FC60C /* FilterToolBar.swift in Sources */,
 				02E0C9712A741E8800350F5B /* ContentView.swift in Sources */,
 				DD90F0032A75A1CA006FC60C /* NoteView.swift in Sources */,
+				DD90F00A2A75E9F1006FC60C /* HeaderNotesView.swift in Sources */,
 				02E0C96F2A741E8800350F5B /* RememberMeApp.swift in Sources */,
 				DD90EFFE2A75626F006FC60C /* Date+Extension.swift in Sources */,
 				DD90EFFB2A755414006FC60C /* NotesPersistenceManager.swift in Sources */,
 				DD90F0002A756292006FC60C /* String+Extension.swift in Sources */,
+				DD90F00C2A75EDBB006FC60C /* TitleMainView.swift in Sources */,
 				02E0C9A02A7425BC00350F5B /* ContentViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -689,6 +729,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		DD90F0042A75E6C1006FC60C /* XCRemoteSwiftPackageReference "neumorphic" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/costachung/neumorphic";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		DD90F0052A75E6C1006FC60C /* Neumorphic */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DD90F0042A75E6C1006FC60C /* XCRemoteSwiftPackageReference "neumorphic" */;
+			productName = Neumorphic;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		02E0C9792A741E8900350F5B /* RememberMe.xcdatamodeld */ = {

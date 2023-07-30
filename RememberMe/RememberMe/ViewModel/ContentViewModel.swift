@@ -14,16 +14,30 @@ class ContentViewModel: ObservableObject {
     
     let context = PersistenceController.shared.container.newBackgroundContext()
     
-    func getProductsListFromDB() async -> [Note]? {
+    typealias evenOddLists = ( [Note], [Note] )
+    
+    func getProductsListFromDB() async -> evenOddLists {
         do {
             let coreDataManager = NotesPersistenceManager(context: context)
             let myDBList = try await coreDataManager.fetchDataFromDatabase()
 
             let productsList = myDBList.compactMap({Note(from: $0)})
-            return productsList
+            
+            var leftList = [Note]()
+            var rightList = [Note]()
+            var index = 0
+            productsList.forEach { note in
+                if index % 2 == 0 {
+                    leftList.append(note)
+                }else {
+                    rightList.append(note)
+                }
+                index += 1
+            }
+            return (leftList, rightList)
         }catch let error {
             print(error.localizedDescription)
-            return nil
+            return ([], [])
         }
     }
     

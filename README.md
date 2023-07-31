@@ -35,13 +35,13 @@
     - [x] Factory
     - [x] Facade
 
-- [ ] Notes App:
+- [x] Notes App:
     - [x] CoreData Manager
     - [x] UI Non Functional:
         - [x] Header
         - [x] Toolbar 
         - [x] GridViews
-        - [ ] Note Edition
+        - [x] Note Edition
     - [x] UI Functionalities:
         - [x] GridViews Interactions
         - [x] Note Edition Interactions

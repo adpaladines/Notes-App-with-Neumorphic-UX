@@ -23,12 +23,12 @@
 		02E0C9AF2A74300600350F5B /* View+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E0C9AE2A74300600350F5B /* View+Extension.swift */; };
 		02E0C9B12A74302800350F5B /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E0C9B02A74302800350F5B /* Color+Extension.swift */; };
 		02E0C9B42A74322000350F5B /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E0C9B32A74322000350F5B /* Note.swift */; };
+		02E0CA172A782C2E00350F5B /* Neumorphic in Frameworks */ = {isa = PBXBuildFile; productRef = 02E0CA162A782C2E00350F5B /* Neumorphic */; };
 		DD90EFFB2A755414006FC60C /* NotesPersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E0C9A72A742CF300350F5B /* NotesPersistenceManager.swift */; };
 		DD90EFFC2A75541C006FC60C /* RememberMe.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 02E0C9792A741E8900350F5B /* RememberMe.xcdatamodeld */; };
 		DD90EFFE2A75626F006FC60C /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD90EFFD2A75626F006FC60C /* Date+Extension.swift */; };
 		DD90F0002A756292006FC60C /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD90EFFF2A756292006FC60C /* String+Extension.swift */; };
 		DD90F0032A75A1CA006FC60C /* NoteEditionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD90F0022A75A1CA006FC60C /* NoteEditionView.swift */; };
-		DD90F0062A75E6C1006FC60C /* Neumorphic in Frameworks */ = {isa = PBXBuildFile; productRef = DD90F0052A75E6C1006FC60C /* Neumorphic */; };
 		DD90F00A2A75E9F1006FC60C /* HeaderNotesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD90F0092A75E9F1006FC60C /* HeaderNotesView.swift */; };
 		DD90F00C2A75EDBB006FC60C /* TitleMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD90F00B2A75EDBB006FC60C /* TitleMainView.swift */; };
 		DD90F00E2A76133D006FC60C /* FilterToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD90F00D2A76133D006FC60C /* FilterToolBar.swift */; };
@@ -100,7 +100,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DD90F0062A75E6C1006FC60C /* Neumorphic in Frameworks */,
+				02E0CA172A782C2E00350F5B /* Neumorphic in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -298,7 +298,7 @@
 			);
 			name = RememberMe;
 			packageProductDependencies = (
-				DD90F0052A75E6C1006FC60C /* Neumorphic */,
+				02E0CA162A782C2E00350F5B /* Neumorphic */,
 			);
 			productName = RememberMe;
 			productReference = 02E0C96B2A741E8800350F5B /* RememberMe.app */;
@@ -373,7 +373,7 @@
 			);
 			mainGroup = 02E0C9622A741E8800350F5B;
 			packageReferences = (
-				DD90F0042A75E6C1006FC60C /* XCRemoteSwiftPackageReference "neumorphic" */,
+				02E0CA152A782C2E00350F5B /* XCRemoteSwiftPackageReference "neumorphic" */,
 			);
 			productRefGroup = 02E0C96C2A741E8800350F5B /* Products */;
 			projectDirPath = "";
@@ -763,7 +763,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		DD90F0042A75E6C1006FC60C /* XCRemoteSwiftPackageReference "neumorphic" */ = {
+		02E0CA152A782C2E00350F5B /* XCRemoteSwiftPackageReference "neumorphic" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/costachung/neumorphic";
 			requirement = {
@@ -774,9 +774,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		DD90F0052A75E6C1006FC60C /* Neumorphic */ = {
+		02E0CA162A782C2E00350F5B /* Neumorphic */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = DD90F0042A75E6C1006FC60C /* XCRemoteSwiftPackageReference "neumorphic" */;
+			package = 02E0CA152A782C2E00350F5B /* XCRemoteSwiftPackageReference "neumorphic" */;
 			productName = Neumorphic;
 		};
 /* End XCSwiftPackageProductDependency section */

@@ -17,14 +17,18 @@ struct NotesVGridView: View {
     var maxHeight: CGFloat
     var backButtonTitle: String
     
-    let deletionClosure: (_ offsets: IndexSet) -> Void
+    let deletionClosure: (_ index: Int) -> Void
     
     let refreshUI: () -> Void
     
     var body: some View {
-        LazyVGrid(columns: [GridItem(.flexible(minimum: 40), spacing: 16)], spacing: 24, pinnedViews: PinnedScrollableViews()) {
+        LazyVGrid(
+//            columns: [GridItem(.flexible(minimum: 40), spacing: 16)],
+            columns: [GridItem(.adaptive(minimum: 150))],
+            spacing: 32,
+            pinnedViews: PinnedScrollableViews()
+        ) {
             ForEach(notesList) { item in
-                
                 NavigationLink {
                     NoteEditionView(
                         item: item,
@@ -69,8 +73,7 @@ struct NotesVGridView: View {
                                         guard let index = notesList.firstIndex(of: item) else {
                                             return
                                         }
-                                        let indexSet = IndexSet(integer: index)
-                                        deletionClosure(indexSet)
+                                        deletionClosure(index)
                                     }label: {
                                         VStack {
                                             Image(systemName: "xmark.circle.fill")
@@ -91,10 +94,6 @@ struct NotesVGridView: View {
                     .opacity(0.85)
                 }
             }
-            .onDelete { indexSet in
-                deletionClosure(indexSet)
-//                deleteItems(offsets: indexSet)
-            }
 //            .frame(maxHeight: 128)
         }
         .padding([.horizontal], 8)
@@ -105,16 +104,13 @@ struct NotesVGrid_Previews: PreviewProvider {
 
     
     static var previews: some View {
+        let ints = [1,432,36,25,6,7,45,68,27,54,5,25,73,4,56,9]
+        let notes = Array<Note>(repeating: Note(uuid: String(ints.randomElement()!), titleString: String(ints.randomElement()!), bodyString: String(ints.randomElement()!), date: Date(), type: NoteType.allCases.randomElement()!), count: 2)
         let viewModel = ContentViewModel()
-        NotesVGridView(notesList: [
-            Note(
-                uuid: UUID().uuidString,
-                titleString: "Title \(Int.random(in: 0...10))",
-                bodyString: "Body \(Int.random(in: 0...10))",
-                date: Date(),
-                type: .birthday
-            )
-        ], isEditingGrid: false, maxHeight: 196, backButtonTitle: GetString.shared.getMainBodyString(when: true), deletionClosure: { indexSet in
+        NotesVGridView(notesList:
+            notes
+        ,
+                       isEditingGrid: false, maxHeight: 196, backButtonTitle: GetString.shared.getMainBodyString(when: true), deletionClosure: { indexSet in
             print("indexSet: \(indexSet)")
         }, refreshUI: {
             

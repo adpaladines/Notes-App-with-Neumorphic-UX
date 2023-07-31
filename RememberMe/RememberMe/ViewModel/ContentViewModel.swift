@@ -16,29 +16,16 @@ class ContentViewModel: ObservableObject {
     
     typealias evenOddLists = ( [Note], [Note] )
     
-    func getProductsListFromDB() async -> evenOddLists {
+    func getProductsListFromDB() async -> [Note] {//} evenOddLists {
         do {
             let coreDataManager = NotesPersistenceManager(context: context)
             let myDBList = try await coreDataManager.fetchDataFromDatabase()
 
             let productsList = myDBList.compactMap({Note(from: $0)})
-            
-            var leftList = [Note]()
-            var rightList = [Note]()
-            var index = 0
-            productsList.forEach { note in
-                if index.isEven {
-                    leftList.append(note)
-                }else {
-                    rightList.append(note)
-                }
-                index += 1
-            }
-            lisIsEven = productsList.isEven
-            return (leftList, rightList)
+            return productsList.reversed()
         }catch let error {
             print(error.localizedDescription)
-            return ([], [])
+            return []
         }
     }
     
@@ -81,28 +68,6 @@ class ContentViewModel: ObservableObject {
             print(error.localizedDescription)
         }
     }
-    
-    
-//    func getProductsListFromGenericDB() async {//} -> [Note]? {
-//        do {
-//            let coreDataGenericManager: GenericPersistenceManager = GenericPersistenceManager(context: context)
-//            let coreDataManager = NotesPersistenceManager(context: context)
-//            let productEntity = NoteEntity(context: context)
-//            let myList = try await coreDataManager.fetchDataFromDatabase()
-//
-//            let myDBList = try await coreDataGenericManager.fetchDataFromDatabase(entity: productEntity)
-//            let productsList = myDBList.compactMap({Note(from: $0)})
-//            DispatchQueue.main.async {
-////                return productsList
-//                self.notesList = productsList
-//            }
-//        }catch let error {
-//            print(error.localizedDescription)
-////            return nil
-//        }
-//    }
-    
-
 
 }
 

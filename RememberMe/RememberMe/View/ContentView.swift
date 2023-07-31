@@ -13,7 +13,7 @@ struct ContentView: View {
     @EnvironmentObject var viewModel: ContentViewModel
     @EnvironmentObject var orientationInfo: OrientationInfo
     
-    @State var leftNotesList: [Note] = []
+//    @State var leftNotesList: [Note] = []
     @State var rightNotesList: [Note] = []
 
     @State var isSearching: Bool = false
@@ -23,7 +23,7 @@ struct ContentView: View {
     @State var isEditingGrid: Bool = false
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             VStack {
                 HeaderNotesView(isEditingGrid: $isEditingGrid)
                     .padding([.horizontal])
@@ -49,36 +49,16 @@ struct ContentView: View {
                         .padding([.horizontal])
                 }
                 ScrollView {
-                    if leftNotesList.isNotEmpty {
-                        HStack(alignment: .top) {
+                    if rightNotesList.isNotEmpty {
                             NotesVGridView(
-                                notesList: leftNotesList.reversed(),
-                                isEditingGrid: isEditingGrid,
-                                maxHeight: 256,
-                                backButtonTitle: GetString.shared.getMainTitleString(when: isSearching),
-                                deletionClosure: { offsets in
-                                    deleteItems(offsets: offsets, side: .left)
-                                },
-                                refreshUI: {
-                                    Task {
-                                        await getNotesFromDB()
-                                    }
-                                })
-                            .onChange(of: leftNotesList.count) { newValue in
-                                print("leftNotesList.count = \(newValue)")
-                                Task {
-                                    await getNotesFromDB()
-                                }
-                                
-                            }
-                            NotesVGridView(
-                                notesList: rightNotesList.reversed(),
+                                notesList: rightNotesList,
                                 isEditingGrid: isEditingGrid,
                                 maxHeight: 256,
                                 backButtonTitle:
                                     GetString.shared.getMainTitleString(when: isSearching),
-                                deletionClosure: { offsets in
-                                        deleteItems(offsets: offsets, side: .right)
+                                deletionClosure: { index in
+                                    print(index)
+                                        deleteItems(index: index, side: .right)
                                     }, refreshUI: {
                                     Task {
                                         await getNotesFromDB()
@@ -90,7 +70,6 @@ struct ContentView: View {
                                     await getNotesFromDB()
                                 }
                             }
-                        }
                     } else {
                         HStack(alignment: .center) {
                             Spacer()
@@ -106,11 +85,6 @@ struct ContentView: View {
                 .padding([.top], isFilterOpen ? 0 :
                             orientationInfo.orientation == .portrait ? 32 : 24)
                 .toolbar(.hidden)
-//                .refreshable {
-//                    Task {
-//                        await getNotesFromDB()
-//                    }
-//                }
             }
             .background(Image("white-camouflage").opacity(0.35))
         }
@@ -124,48 +98,27 @@ extension ContentView {
     
     func getNotesFromDB() async {
         Task {
-            let toupleList = await viewModel.getProductsListFromDB()
-            leftNotesList = toupleList.0
-            rightNotesList = toupleList.1
+            rightNotesList = await viewModel.getProductsListFromDB()
         }
     }
     
     func addItem() async {
-        let side: GridSide = (leftNotesList.count + rightNotesList.count).isEven ? .left : .right
         let newDefaultNote = Note().newDefaultNote
-        switch side {
-        case .left :
-            withAnimation {
-                leftNotesList.append(newDefaultNote)
-            }
-        case .right:
-            withAnimation {
-                rightNotesList.append(newDefaultNote)
-            }
+        withAnimation {
+            rightNotesList.append(newDefaultNote)
         }
         await viewModel.add(new: newDefaultNote)
-//        await getNotesFromDB()
     }
     
-    func deleteItems(offsets: IndexSet, side: GridSide) {
-        guard let index = offsets.first else {
-            return
-        }
-        var selectedNote: Note
-        switch side {
-        case .left:
-            selectedNote = leftNotesList[index]
-            withAnimation {
-                leftNotesList.remove(atOffsets: offsets)
-            }
-        case .right:
+    func deleteItems(index: Int, side: GridSide) {
+        withAnimation {
+            var selectedNote: Note
             selectedNote = rightNotesList[index]
-            withAnimation {
-                rightNotesList.remove(atOffsets: offsets)
+            rightNotesList.remove(at: index)
+            Task {
+                await viewModel.delete(note: selectedNote)
+//                rightNotesList = await viewModel.getProductsListFromDB()
             }
-        }
-        Task {
-            await viewModel.delete(note: selectedNote)
         }
     }
     

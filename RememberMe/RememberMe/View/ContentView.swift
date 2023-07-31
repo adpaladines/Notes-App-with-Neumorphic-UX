@@ -27,9 +27,10 @@ struct ContentView: View {
             VStack {
                 HeaderNotesView(isEditingGrid: $isEditingGrid)
                     .padding([.horizontal])
-                    .padding([.top])
+                    .padding([.top], orientationInfo.orientation == .portrait ? 16 : 4)
                 TitleMainView(isSearchActive: isSearching, isFilterOpen: isFilterOpen)
-                    .padding()
+                    .padding([.horizontal])
+                    .padding([.vertical], orientationInfo.orientation == .portrait ? 16 : 0)
                 NotesToolbar(
                     isSearching: $isSearching,
                     isFilterOpen: $isFilterOpen,
@@ -43,7 +44,7 @@ struct ContentView: View {
                 .padding([.horizontal])
                 if isFilterOpen {
                     FilterToolBar(typeSelected: $typeSelected)
-                        .padding([.bottom], 16)
+                        .padding([.bottom], orientationInfo.orientation == .portrait ? 16 : 0)
                         .padding([.top], 0)
                         .padding([.horizontal])
                 }
@@ -102,7 +103,8 @@ struct ContentView: View {
                         }
                     }
                 }
-                .padding([.top], isFilterOpen ? 0 : 32)
+                .padding([.top], isFilterOpen ? 0 :
+                            orientationInfo.orientation == .portrait ? 32 : 24)
                 .toolbar(.hidden)
 //                .refreshable {
 //                    Task {

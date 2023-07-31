@@ -37,15 +37,15 @@
 
 - [ ] Notes App:
     - [x] CoreData Manager
-    - [ ] UI Non Functional:
+    - [x] UI Non Functional:
         - [x] Header
         - [x] Toolbar 
         - [x] GridViews
         - [ ] Note Edition
-    - [ ] UI Functionalities:
-        - [ ] GridViews Interactions
-        - [ ] Note Edition Interactions
-        - [ ] Note Edition Close -> Refresh Main View
+    - [x] UI Functionalities:
+        - [x] GridViews Interactions
+        - [x] Note Edition Interactions
+        - [x] Note Edition Close -> Refresh Main View
     - [x] ViewModel
     - [x] Save in CoreData
     - [x] Fetch from CoreData

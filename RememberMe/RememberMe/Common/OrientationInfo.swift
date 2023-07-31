@@ -3,6 +3,7 @@
 //  RememberMe
 //
 //  Created by andres paladines on 7/30/23.
+//  Source: https://developer.apple.com/forums/thread/126878
 //
 
 import UIKit

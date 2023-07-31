@@ -10,7 +10,7 @@ import Foundation
 @MainActor
 class ContentViewModel: ObservableObject {
     
-    @Published var notesList: [Note] = []
+    @Published var lisIsEven: Bool = false
     
     let context = PersistenceController.shared.container.newBackgroundContext()
     
@@ -27,13 +27,14 @@ class ContentViewModel: ObservableObject {
             var rightList = [Note]()
             var index = 0
             productsList.forEach { note in
-                if index % 2 == 0 {
+                if index.isEven {
                     leftList.append(note)
                 }else {
                     rightList.append(note)
                 }
                 index += 1
             }
+            lisIsEven = productsList.isEven
             return (leftList, rightList)
         }catch let error {
             print(error.localizedDescription)
@@ -41,11 +42,9 @@ class ContentViewModel: ObservableObject {
         }
     }
     
-    func addNewNote() async {
+    func add(new note: Note) async {
         do {
-            let newItem = Note(uuid: UUID().uuidString, titleString: "Tap to edit", bodyString: "", date: Date(), type: .sport)
-            
-            try await saveNotesListInDB(item: newItem)
+            try await saveNotesListInDB(item: note)
         }catch let error {
             print(error.localizedDescription)
         }
@@ -54,6 +53,15 @@ class ContentViewModel: ObservableObject {
     func saveNotesListInDB(item: Note) async throws {
         let coreDataManager = NotesPersistenceManager(context: context)
         try await coreDataManager.saveDataIntoDatabase(item: item)
+    }
+    
+    func updateNoteWith(with uuid: String, titleString: String, bodyString: String) async {
+        do {
+            let notesDataGenericManager = NotesPersistenceManager(context: context)
+            try await notesDataGenericManager.updateNoteEntity(with: uuid, titleString: titleString, bodyString: bodyString)
+        }catch let error {
+            print(error.localizedDescription)
+        }
     }
     
     func update(note: Note) async {

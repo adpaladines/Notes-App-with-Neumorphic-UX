@@ -19,14 +19,14 @@ struct TitleMainView: View {
         let isSearching = isFilterOpen || isSearchActive
         VStack {
             HStack(alignment: .firstTextBaseline) {
-                Text(isSearching ? "Searching Notes" : "All Notes")
+                Text(GetString.shared.getMainTitleString(when: isSearching))
                     .font(.title)
                     .multilineTextAlignment(.leading)
                     .foregroundColor(.gray)
                 Spacer()
             }
             HStack(alignment: .firstTextBaseline) {
-                Text(isSearching ? "Looking for some specific note." : "Explore all notes you wrote.")
+                Text(GetString.shared.getMainBodyString(when: isSearching))
                     .font(.callout)
                     .multilineTextAlignment(.leading)
                     .foregroundColor(.gray)

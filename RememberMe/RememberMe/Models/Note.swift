@@ -27,6 +27,14 @@ struct Note: Identifiable, Equatable {
     var date: Date
     var type: NoteType
     
+    init() {
+        self.uuid = UUID().uuidString
+        self.titleString = ""
+        self.bodyString = ""
+        self.date = Date()
+        self.type = .all
+    }
+    
     init(uuid: String, titleString: String, bodyString: String, date: Date, type: NoteType) {
         self.uuid = uuid
         self.titleString = titleString
@@ -52,6 +60,11 @@ struct Note: Identifiable, Equatable {
         self.bodyString = bodyString
         self.date = note.date
         self.type = note.type
+    }
+    
+    
+    var newDefaultNote: Note {
+        return Note(uuid: UUID().uuidString, titleString: "Tap to edit", bodyString: "", date: Date(), type: .sport)
     }
     
 }

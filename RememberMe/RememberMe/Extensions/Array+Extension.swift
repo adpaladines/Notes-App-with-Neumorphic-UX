@@ -13,4 +13,7 @@ extension Array {
         !isEmpty
     }
     
+    var isEven: Bool {
+        count % 2 == 0
+    }
 }

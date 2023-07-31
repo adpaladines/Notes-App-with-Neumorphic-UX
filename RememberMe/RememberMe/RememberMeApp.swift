@@ -15,6 +15,7 @@ struct RememberMeApp: App {
         WindowGroup {
             ContentView()
                 .environmentObject(ContentViewModel())
+                .environmentObject(OrientationInfo())
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }

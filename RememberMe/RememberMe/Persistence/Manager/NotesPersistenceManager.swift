@@ -53,6 +53,17 @@ class NotesPersistenceManager: CoreDataOperationsProtocol {
         }
     }
     
+    func updateNoteEntity(with uuid: String, titleString: String, bodyString: String) async throws {
+        guard let noteEntity = try await fetchSingleItemFromDatabase(uuid: uuid) else {
+            print("NoteEntity with UUID: \(uuid) not found.")
+            return
+        }
+        noteEntity.titleString = titleString
+        noteEntity.bodyString = bodyString
+        noteEntity.dateUpdate = Date()
+        try context.save()
+    }
+    
     func updateNoteEntity(with note: Note) async throws {
         guard let noteEntity = try await fetchSingleItemFromDatabase(uuid: note.uuid) else {
             print("NoteEntity with UUID: \(note.uuid) not found.")
@@ -71,7 +82,7 @@ class NotesPersistenceManager: CoreDataOperationsProtocol {
         }
         context.delete(noteEntity)
         try context.save()
-        print("Note with uuid: \(note.uuid), deleted!")
+//        print("Note with uuid: \(note.uuid), deleted!")
     }
     
     func deleteAllRecords() async throws {

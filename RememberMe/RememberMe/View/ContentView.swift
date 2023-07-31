@@ -11,9 +11,10 @@ import Neumorphic
 
 struct ContentView: View {
     @EnvironmentObject var viewModel: ContentViewModel
-
-    @State var notesList: [Note] = []
-    @State var notesEvenList: [Note] = []
+    @EnvironmentObject var orientationInfo: OrientationInfo
+    
+    @State var leftNotesList: [Note] = []
+    @State var rightNotesList: [Note] = []
 
     @State var isSearching: Bool = false
     @State var isFilterOpen: Bool = false
@@ -22,12 +23,11 @@ struct ContentView: View {
     @State var isEditingGrid: Bool = false
     
     var body: some View {
-        var evenIndex = 0
-        var oddIndex = 1
         NavigationView {
             VStack {
-                HeaderNotesView()
-                    .padding()
+                HeaderNotesView(isEditingGrid: $isEditingGrid)
+                    .padding([.horizontal])
+                    .padding([.top])
                 TitleMainView(isSearchActive: isSearching, isFilterOpen: isFilterOpen)
                     .padding()
                 NotesToolbar(
@@ -48,79 +48,45 @@ struct ContentView: View {
                         .padding([.horizontal])
                 }
                 ScrollView {
-                    if notesList.isNotEmpty {
+                    if leftNotesList.isNotEmpty {
                         HStack(alignment: .top) {
-                            LazyVGrid(columns: [GridItem(.flexible(minimum: 40), spacing: 16)], spacing: 24, pinnedViews: PinnedScrollableViews()) {
-                                ForEach(notesList) { item in
-                                    
-                                    NavigationLink {
-                                        NoteView(item: item)
-                                    } label: {
-                                        ZStack {
-                                            RoundedRectangle(cornerRadius: 12)
-                                                .fill(Color.Neumorphic.lightShadow)
-                                                .softOuterShadow()
-                                            VStack {
-                                                HStack {
-                                                    Text(item.titleString)
-                                                        .font(.title2)
-                                                        .foregroundColor(.primary)
-                                                        .multilineTextAlignment(.leading)
-                                                        .padding([.bottom], 8)
-                                                    Spacer()
-                                                }
-                                                HStack {
-                                                    Text(item.bodyString)
-                                                        .font(.footnote)
-                                                        .foregroundColor(.primary)
-                                                        .multilineTextAlignment(.leading)
-                                                    Spacer()
-                                                }
-                                            }
-                                            .padding()
-                                        }
-                                        .opacity(0.85)
+                            NotesVGridView(
+                                notesList: leftNotesList.reversed(),
+                                isEditingGrid: isEditingGrid,
+                                maxHeight: 256,
+                                backButtonTitle: GetString.shared.getMainTitleString(when: isSearching),
+                                deletionClosure: { offsets in
+                                    deleteItems(offsets: offsets, side: .left)
+                                },
+                                refreshUI: {
+                                    Task {
+                                        await getNotesFromDB()
                                     }
+                                })
+                            .onChange(of: leftNotesList.count) { newValue in
+                                print("leftNotesList.count = \(newValue)")
+                                Task {
+                                    await getNotesFromDB()
                                 }
-                                .onDelete { indexSet in
-                                    deleteItems(offsets: indexSet)
-                                }
+                                
                             }
-                            
-                            
-                            LazyVGrid(columns: [GridItem(.flexible(minimum: 40), spacing: 16)], spacing: 24, pinnedViews: PinnedScrollableViews()) {
-                                ForEach(notesEvenList) { item in
-                                    NavigationLink {
-                                        NoteView(item: item)
-                                    } label: {
-                                        ZStack {
-                                            RoundedRectangle(cornerRadius: 12)
-                                                .fill(Color.Neumorphic.lightShadow)
-                                                .softOuterShadow()
-                                            VStack {
-                                                HStack {
-                                                    Text(item.titleString)
-                                                        .font(.title2)
-                                                        .foregroundColor(.primary)
-                                                        .multilineTextAlignment(.leading)
-                                                        .padding([.bottom], 8)
-                                                    Spacer()
-                                                }
-                                                HStack {
-                                                    Text(item.bodyString)
-                                                        .font(.footnote)
-                                                        .foregroundColor(.primary)
-                                                        .multilineTextAlignment(.leading)
-                                                    Spacer()
-                                                }
-                                            }
-                                            .padding()
-                                        }
-                                        .opacity(0.85)
+                            NotesVGridView(
+                                notesList: rightNotesList.reversed(),
+                                isEditingGrid: isEditingGrid,
+                                maxHeight: 256,
+                                backButtonTitle:
+                                    GetString.shared.getMainTitleString(when: isSearching),
+                                deletionClosure: { offsets in
+                                        deleteItems(offsets: offsets, side: .right)
+                                    }, refreshUI: {
+                                    Task {
+                                        await getNotesFromDB()
                                     }
-                                }
-                                .onDelete { indexSet in
-                                    deleteItems(offsets: indexSet)
+                                })
+                            .onChange(of: rightNotesList.count) { newValue in
+                                print("rightNotesList.count = \(newValue)")
+                                Task {
+                                    await getNotesFromDB()
                                 }
                             }
                         }
@@ -157,26 +123,47 @@ extension ContentView {
     func getNotesFromDB() async {
         Task {
             let toupleList = await viewModel.getProductsListFromDB()
-            notesList = toupleList.0
-            notesEvenList = toupleList.1
+            leftNotesList = toupleList.0
+            rightNotesList = toupleList.1
         }
     }
     
     func addItem() async {
-        await viewModel.addNewNote()
-        await getNotesFromDB()
+        let side: GridSide = (leftNotesList.count + rightNotesList.count).isEven ? .left : .right
+        let newDefaultNote = Note().newDefaultNote
+        switch side {
+        case .left :
+            withAnimation {
+                leftNotesList.append(newDefaultNote)
+            }
+        case .right:
+            withAnimation {
+                rightNotesList.append(newDefaultNote)
+            }
+        }
+        await viewModel.add(new: newDefaultNote)
+//        await getNotesFromDB()
     }
-
-    func deleteItems(offsets: IndexSet) {
-        withAnimation {
-            guard let index = offsets.first else {
-                return
+    
+    func deleteItems(offsets: IndexSet, side: GridSide) {
+        guard let index = offsets.first else {
+            return
+        }
+        var selectedNote: Note
+        switch side {
+        case .left:
+            selectedNote = leftNotesList[index]
+            withAnimation {
+                leftNotesList.remove(atOffsets: offsets)
             }
-            let note = notesList[index]
-            notesList.remove(atOffsets: offsets)
-            Task {
-                await viewModel.delete(note: note)
+        case .right:
+            selectedNote = rightNotesList[index]
+            withAnimation {
+                rightNotesList.remove(atOffsets: offsets)
             }
+        }
+        Task {
+            await viewModel.delete(note: selectedNote)
         }
     }
     
@@ -194,6 +181,7 @@ struct ContentView_Previews: PreviewProvider {
         let viewModel = ContentViewModel()
         ContentView()
             .environmentObject(viewModel)
+            .environmentObject(OrientationInfo())
             .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
     }
 }

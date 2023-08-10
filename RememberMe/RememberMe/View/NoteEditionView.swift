@@ -2,7 +2,7 @@
 //  NoteEditionView.swift
 //  RememberMe
 //
-//  Created by andres paladines on 7/29/23.
+//  Created by Andres D. Paladines on 7/29/23.
 //
 
 import SwiftUI

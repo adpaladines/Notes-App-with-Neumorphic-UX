@@ -14,7 +14,7 @@ struct ContentView: View {
     @EnvironmentObject var orientationInfo: OrientationInfo
     
 //    @State var leftNotesList: [Note] = []
-    @State var rightNotesList: [Note] = []
+//    @State var rightNotesList: [Note] = []
 
     @State var isSearching: Bool = false
     @State var isFilterOpen: Bool = false
@@ -49,9 +49,10 @@ struct ContentView: View {
                         .padding([.horizontal])
                 }
                 ScrollView {
-                    if rightNotesList.isNotEmpty {
+
+                    if viewModel.notesFilteredList.isNotEmpty {
                             NotesVGridView(
-                                notesList: rightNotesList,
+                                notesList: viewModel.notesFilteredList,
                                 isEditingGrid: isEditingGrid,
                                 maxHeight: 256,
                                 backButtonTitle:
@@ -64,7 +65,7 @@ struct ContentView: View {
                                         await getNotesFromDB()
                                     }
                                 })
-                            .onChange(of: rightNotesList.count) { newValue in
+                            .onChange(of: viewModel.notesFilteredList.count) { newValue in
                                 print("rightNotesList.count = \(newValue)")
                                 Task {
                                     await getNotesFromDB()
@@ -98,14 +99,14 @@ extension ContentView {
     
     func getNotesFromDB() async {
         Task {
-            rightNotesList = await viewModel.getProductsListFromDB()
+            await viewModel.getProductsListFromDB()
         }
     }
     
     func addItem() async {
         let newDefaultNote = Note().newDefaultNote
         withAnimation {
-            rightNotesList.append(newDefaultNote)
+            viewModel.notesFilteredList.append(newDefaultNote)
         }
         await viewModel.add(new: newDefaultNote)
     }
@@ -113,8 +114,8 @@ extension ContentView {
     func deleteItems(index: Int, side: GridSide) {
         withAnimation {
             var selectedNote: Note
-            selectedNote = rightNotesList[index]
-            rightNotesList.remove(at: index)
+            selectedNote = viewModel.notesFilteredList[index]
+            viewModel.notesFilteredList.remove(at: index)
             Task {
                 await viewModel.delete(note: selectedNote)
 //                rightNotesList = await viewModel.getProductsListFromDB()

@@ -14,7 +14,10 @@ class ContentViewModel: ObservableObject {
     
     let context = PersistenceController.shared.container.newBackgroundContext()
     
-    typealias evenOddLists = ( [Note], [Note] )
+//    typealias evenOddLists = ( [Note], [Note] )
+
+    var notesList: [Note] = []
+    var notesFilteredList: [Note] = []
     
     func getProductsListFromDB() async -> [Note] {//} evenOddLists {
         do {
@@ -22,7 +25,9 @@ class ContentViewModel: ObservableObject {
             let myDBList = try await coreDataManager.fetchDataFromDatabase()
 
             let productsList = myDBList.compactMap({Note(from: $0)})
-            return productsList.reversed()
+            notesList = productsList
+            notesFilteredList = productsList
+            return productsList
         }catch let error {
             print(error.localizedDescription)
             return []

@@ -2,7 +2,7 @@
 //  OrientationInfo.swift
 //  RememberMe
 //
-//  Created by andres paladines on 7/30/23.
+//  Created by Andres D. Paladines on 7/30/23.
 //  Source: https://developer.apple.com/forums/thread/126878
 //
 

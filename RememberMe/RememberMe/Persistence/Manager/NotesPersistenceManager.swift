@@ -28,8 +28,12 @@ class NotesPersistenceManager: CoreDataOperationsProtocol {
     
     func fetchDataFromDatabase() async throws -> [NoteEntity] {
         let request: NSFetchRequest<NoteEntity> = NoteEntity.fetchRequest()
+//        let sortDescriptor = NSSortDescriptor(key: "name_f", ascending: true)
+//        let sortDescriptors = [sortDescriptor]
+//        request.sortDescriptors = sortDescriptors
+
         let result = try context.fetch(request)
-        return result
+        return result.reversed()
     }
     
     func getItemDataFromDatabase() async throws -> NoteEntity {

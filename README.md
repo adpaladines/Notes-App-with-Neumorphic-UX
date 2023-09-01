@@ -25,6 +25,14 @@
     - [x] Save in CoreData
     - [x] Fetch from CoreData
 
+## App Running
+
+
+
+https://github.com/apaladines-techconsulting/Notes-App-with-CoreData/assets/138136886/1c9f023f-654d-47a0-bdc4-0373d29fadd0
+
+
+
 [swift-image]:https://img.shields.io/badge/Swift-5.8.1-orange?style=for-the-badge
 [swift-url]: https://swift.org/
 
